@@ -19,6 +19,7 @@ const config: Config = {
     extend: {
       colors: {
         "dark-gray": "#303030",
+        "light-gray": "#999999",
       },
       fontFamily: {
         inter: ["var(--font-inter)"],

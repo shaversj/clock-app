@@ -1,7 +1,10 @@
+import SunIcon from "@/components/icons/SunIcon";
+import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
+
 export default function Home() {
   return (
     <div className={"min-h-screen bg-black/40 bg-[url('/images/bg-image-daytime.jpg')] bg-cover bg-no-repeat bg-blend-overlay"}>
-      <div className="pl-[165px] pt-[56px]">
+      <div className="px-[165px] pt-[56px]">
         <div className={"font-inter w-[540px] text-base font-normal text-white"}>
           <p>
             “The science of operations, as derived from mathematics more especially, is a science of itself, and has its own abstract truth and
@@ -10,16 +13,25 @@ export default function Home() {
           <p className={"pt-[13px] font-bold"}>Ada Lovelace</p>
         </div>
 
-        <div className={"pt-[232px]"}>
+        <div className={"flex items-end pt-[232px]"}>
           <div>
-            <p>GOOD MORNING, IT’S CURRENTLY</p>
-            <div>
-              <p>11:25</p>
-              <p>BST</p>
+            <div className={"flex items-center gap-x-4"}>
+              <SunIcon />
+              <p className={"text-[20px] uppercase leading-[28px] tracking-[4px]"}>GOOD MORNING, IT’S CURRENTLY</p>
             </div>
-            <p>IN LONDON, UK</p>
+
+            <div className={"space-x-[11px]"}>
+              <span className={"text-[200px] font-bold leading-[200px] -tracking-[5px]"}>11:25</span>
+              <span className={"inline-block text-[40px] font-light leading-[28px]"}>BST</span>
+            </div>
+            <p className={"pt-4 text-[24px] font-bold leading-[28px] tracking-[4.8px]"}>IN LONDON, UK</p>
           </div>
-          <button>MORE</button>
+          <div className={"ml-auto flex h-[56px] w-[146px] items-center justify-end gap-x-[13px] rounded-[28px] bg-white"}>
+            <span className={"text-[16px] font-bold uppercase leading-[28px] tracking-[5px] text-[#808080]"}>More</span>
+            <button className={"hover:bg-light-gray mr-[9px] flex size-[40px] items-center justify-center rounded-full bg-dark-gray"}>
+              <ArrowDownIcon />
+            </button>
+          </div>
         </div>
 
         <div>
