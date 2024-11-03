@@ -1,10 +1,7 @@
 export default function ArrowUpIcon() {
   return (
-    <svg width="40" height="40" xmlns="http://www.w3.org/2000/svg">
-      <g fill="none" fillRule="evenodd">
-        <circle fill="#303030" cx="20" cy="20" r="20" />
-        <path stroke="#FFF" strokeWidth="2" d="M14 23l6-6 6 6" />
-      </g>
+    <svg className={"h-[8px] w-[12px] md:h-[14px] md:h-[9px]"} viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 8L7 2L13 8" stroke="white" strokeWidth="2" />
     </svg>
   );
 }
