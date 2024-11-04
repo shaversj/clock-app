@@ -11,6 +11,12 @@ const config: Config = {
         },
       ],
       "abbr-md": [
+        "2rem",
+        {
+          lineHeight: "1.75rem",
+        },
+      ],
+      "abbr-lg": [
         "2.5rem",
         {
           lineHeight: "1.75rem",
@@ -22,6 +28,14 @@ const config: Config = {
           lineHeight: "1.75rem",
           fontWeight: "700",
           letterSpacing: "0.188rem",
+        },
+      ],
+      "h3-md": [
+        "1.125rem",
+        {
+          lineHeight: "1.75rem",
+          fontWeight: "700",
+          letterSpacing: "0.225rem",
         },
       ],
       "h3-lg": [
@@ -91,6 +105,14 @@ const config: Config = {
           letterSpacing: "-0.313rem",
         },
       ],
+      "h1-md": [
+        "10.938rem",
+        {
+          lineHeight: "10.938rem",
+          fontWeight: "700",
+          letterSpacing: "-0.274rem",
+        },
+      ],
       h1: [
         "6.25rem",
         {
@@ -141,6 +163,7 @@ const config: Config = {
     },
     screens: {
       sm: "375px",
+      md: "768px",
       lg: "1440px",
     },
     extend: {
