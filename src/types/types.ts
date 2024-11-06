@@ -1,4 +1,4 @@
-export type WorldTimeAPIData = {
+export type WorldTimeAPIResponse = {
   utc_offset: string;
   timezone: string;
   day_of_week: number;
@@ -14,6 +14,11 @@ export type WorldTimeAPIData = {
   dst_from: string | null;
   dst_until: string | null;
   client_ip: string;
+};
+
+export type ProgrammingQuoteAPIResponse = {
+  author: string;
+  quote: string;
 };
 
 export type MenuState = "initial" | "menuOpen" | "menuClosed";

@@ -1,11 +1,14 @@
-import type { MenuState } from "@/types/types";
+"use client";
+
+import type { MenuState, ProgrammingQuoteAPIResponse } from "@/types/types";
 import RefreshIcon from "@/components/icons/RefreshIcon";
+import { useEffect, useState } from "react";
 
 const quoteVarients = {
-  base: "lg:w-[540px] grid grid-cols-[1fr,auto] items-start text-mobile md:text-base font-normal text-white",
+  base: "flex gap-x-[15.67px] min-w-fit flex-wrap items-start text-mobile md:text-base font-normal text-white",
   initial: "",
-  menuOpen: "w-[540px] opacity-0 transition-all duration-[1500ms]",
-  menuClosed: "w-[540px] opacity-100 transition-all duration-[1000ms] ease-in",
+  menuOpen: "min-w-fit lg:max-w-[540px] opacity-0 transition-all duration-[1500ms]",
+  menuClosed: "min-w-fit lg:max-w-[540px] opacity-100 transition-all duration-[1000ms] ease-in",
 };
 
 type QuoteSectionProps = {
@@ -13,15 +16,22 @@ type QuoteSectionProps = {
 };
 
 export default function QuoteSection({ menuState }: QuoteSectionProps) {
+  const [quoteData, setQuoteData] = useState<ProgrammingQuoteAPIResponse | null>(null);
+  async function fetchQuoteData() {
+    const response = await fetch("https://programming-quotesapi.vercel.app/api/random").then((res) => res.json());
+    setQuoteData(response);
+  }
+  useEffect(() => {
+    fetchQuoteData();
+  }, []);
+
   return (
     <section className={`${quoteVarients["base"]} ${quoteVarients[menuState]}`}>
-      <div className={""}>
-        <p>
-          “The science of operations, as derived from mathematics more especially, is a science of itself, and has its own abstract truth and value.”
-        </p>
-        <p className={"md:pt-[13px] pt-2 font-bold"}>Ada Lovelace</p>
+      <div className={"lg:max-w-[540px]"}>
+        <p>{quoteData && quoteData.quote}</p>
+        <p className={"pt-2 font-bold md:pt-[13px]"}>{quoteData && quoteData.author}</p>
       </div>
-      <button className={"md:pt-1"}>
+      <button onClick={fetchQuoteData} className={"md:pt-1"}>
         <RefreshIcon />
       </button>
     </section>
