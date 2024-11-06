@@ -40,15 +40,16 @@ export default function Home() {
   return (
     <div
       className={
-        "md:w-[768px] md:h-[1024] md:pt-[80px] md:bg-[url('/images/tablet/bg-image-daytime.jpg')] h-[667px] w-[375px] overflow-hidden bg-black/40 bg-[url('/images/mobile/bg-image-daytime.jpg')] bg-auto pt-[31.67px] bg-blend-overlay lg:h-[800px] lg:w-[1440px] lg:bg-[url('/images/desktop/bg-image-daytime.jpg')] lg:pt-[56px]"
+        "relative h-[667px] w-[375px] overflow-hidden bg-black/40 bg-[url('/images/mobile/bg-image-daytime.jpg')] bg-auto pt-[31.67px] bg-blend-overlay md:h-[1024] md:w-[768px] md:bg-[url('/images/tablet/bg-image-daytime.jpg')] md:pt-[80px] lg:h-[800px] lg:w-[1440px] lg:bg-[url('/images/desktop/bg-image-daytime.jpg')] lg:pt-[56px]"
       }
     >
-      <div className="md:px-[64px] px-[26px] lg:px-[165px]">
+      <TimeDisplaySection menuState={menuState} data={menuData} toggleMenu={toggleMenu} />
+
+      <div className="px-[26px] md:px-[64px] lg:px-[165px]">
         <QuoteSection menuState={menuState} />
-        <TimeDisplaySection menuState={menuState} data={menuData} toggleMenu={toggleMenu} />
       </div>
 
-      <SubMenuSection menuState={menuState} data={menuData} />
+      {/*<SubMenuSection menuState={menuState} data={menuData} />*/}
     </div>
   );
 }

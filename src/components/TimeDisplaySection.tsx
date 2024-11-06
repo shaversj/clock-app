@@ -3,11 +3,12 @@ import SunIcon from "@/components/icons/SunIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
 
+// "pt-[226.33px] md:pt-[388px] lg:pt-[233px]"
 const timeVarients = {
   base: "flex flex-col md:flex-col md:justify-start lg:flex-row lg:items-end lg:justify-between",
-  initial: "pt-[226.33px] md:pt-[388px] lg:pt-[233px]",
-  menuOpen: "-translate-y-[5px] md:-translate-y-[50px] lg:-translate-y-[120px] transition-all duration-1000",
-  menuClosed: "pt-[20px] translate-y-[233px] pb-[98px] transition-all duration-1000",
+  initial: "absolute lg:pt-[358px]",
+  menuOpen: "absolute -translate-y-[5px] md:-translate-y-[50px] lg:-translate-y-[0px] transition-all duration-1000",
+  menuClosed: "absolute lg:pt-[358px] translate-y-[0px] transition-all duration-1000",
 };
 
 type TimeDisplaySectionProps = {
@@ -18,7 +19,7 @@ type TimeDisplaySectionProps = {
 
 export default function TimeDisplaySection({ menuState, data, toggleMenu }: TimeDisplaySectionProps) {
   return (
-    <div className={`${timeVarients["base"]} ${timeVarients[menuState]}`}>
+    <div className={`${timeVarients["base"]} ${timeVarients[menuState]} w-full px-[26px] md:px-[64px] lg:px-[165px]`}>
       <div>
         <div className={"flex items-center gap-x-4"}>
           <SunIcon />
@@ -27,15 +28,15 @@ export default function TimeDisplaySection({ menuState, data, toggleMenu }: Time
           </h4>
         </div>
 
-        <div className={"flex items-baseline pt-4 md:pt-0"}>
+        <div className={"flex items-baseline pt-4 md:pt-0 lg:pt-4"}>
           <div className={"flex items-end"}>
             <h1 className={"text-h1 md:text-h1-md lg:text-h1-lg"}>
               {new Date(data.datetime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })}
             </h1>
           </div>
-          <p className={"text-abbr font-light md:text-abbr-md lg:text-abbr-lg"}>BST</p>
+          <p className={"text-abbr font-light md:text-abbr-md lg:pl-[11px] lg:text-abbr-lg"}>BST</p>
         </div>
-        <h3 className={"pt-4 text-h3 md:pt-0 md:text-h3-md lg:text-h3-lg"}>IN LONDON, UK</h3>
+        <h3 className={"pt-4 text-h3 md:pt-0 md:text-h3-md lg:pt-4 lg:text-h3-lg"}>IN LONDON, UK</h3>
       </div>
       <div
         className={
