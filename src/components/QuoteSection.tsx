@@ -1,8 +1,8 @@
 "use client";
 
-import type { MenuState, ProgrammingQuoteAPIResponse } from "@/types/types";
+import type { MenuState } from "@/types/types";
 import RefreshIcon from "@/components/icons/RefreshIcon";
-import { useEffect, useState } from "react";
+import useProgrammingQuote from "@/hooks/useProgrammingQuote";
 
 const quoteVarients = {
   base: "flex gap-x-[15.67px] min-w-fit flex-wrap items-start text-mobile md:text-base font-normal text-white",
@@ -16,14 +16,7 @@ type QuoteSectionProps = {
 };
 
 export default function QuoteSection({ menuState }: QuoteSectionProps) {
-  const [quoteData, setQuoteData] = useState<ProgrammingQuoteAPIResponse | null>(null);
-  async function fetchQuoteData() {
-    const response = await fetch("https://programming-quotesapi.vercel.app/api/random").then((res) => res.json());
-    setQuoteData(response);
-  }
-  useEffect(() => {
-    fetchQuoteData();
-  }, []);
+  const { quoteData, fetchQuoteData } = useProgrammingQuote();
 
   return (
     <section className={`${quoteVarients["base"]} ${quoteVarients[menuState]}`}>
