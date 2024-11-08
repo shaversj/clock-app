@@ -12,19 +12,18 @@ export function useTimeAndLocation() {
     setTimeData(response);
   }
 
-  async function fetchLocationData() {
-    if (timeData?.client_ip) {
-      const response = await fetch(`https://api.ipbase.com/v2/info?ip=${timeData.client_ip}`).then((res) => res.json());
-      setLocationData(response);
-    }
-  }
-
   useEffect(() => {
     fetchTimeData();
   }, []);
 
   useEffect(() => {
     if (timeData) {
+      async function fetchLocationData() {
+        if (timeData?.client_ip) {
+          const response = await fetch(`https://api.ipbase.com/v2/info?ip=${timeData.client_ip}`).then((res) => res.json());
+          setLocationData(response);
+        }
+      }
       fetchLocationData();
     }
   }, [timeData]);
