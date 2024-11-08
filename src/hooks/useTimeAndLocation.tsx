@@ -8,7 +8,11 @@ export function useTimeAndLocation() {
   const [locationData, setLocationData] = useState<IpBaseResponse | null>(null);
 
   async function fetchTimeData() {
-    const response = await fetch("https://worldtimeapi.org/api/ip").then((res) => res.json());
+    const response = await fetch("https://worldtimeapi.org/api/ip", {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }).then((res) => res.json());
     setTimeData(response);
   }
 
