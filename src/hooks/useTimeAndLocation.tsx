@@ -13,6 +13,7 @@ export function useTimeAndLocation() {
         "Access-Control-Allow-Origin": "*",
       },
     }).then((res) => res.json());
+    console.log(`response:`, response);
     setTimeData(response);
   }
 
@@ -24,7 +25,12 @@ export function useTimeAndLocation() {
     if (timeData) {
       async function fetchLocationData() {
         if (timeData?.client_ip) {
-          const response = await fetch(`https://api.ipbase.com/v2/info?ip=${timeData.client_ip}`).then((res) => res.json());
+          const response = await fetch(`https://api.ipbase.com/v2/info?ip=${timeData.client_ip}`, {
+            mode: "no-cors",
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+            },
+          }).then((res) => res.json());
           setLocationData(response);
         }
       }
