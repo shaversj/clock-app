@@ -1,8 +1,8 @@
-import type { MenuState } from "@/types/types";
+// import type { MenuState } from "@/types/types";
 // import { useState } from "react";
 // import SubMenuSection from "@/components/SubMenuSection";
-import TimeDisplaySection from "@/components/TimeDisplaySection";
-import QuoteSection from "@/components/QuoteSection";
+// import TimeDisplaySection from "@/components/TimeDisplaySection";
+// import QuoteSection from "@/components/QuoteSection";
 import TimeAndLocationServer from "@/components/TimeAndLocationServer";
 
 export default function Home() {
