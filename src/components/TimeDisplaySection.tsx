@@ -4,19 +4,13 @@ import type { MenuState } from "@/types/types";
 import SunIcon from "@/components/icons/SunIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
-import { use } from "react";
-import { fetchIpAddress, fetchTimefromTimeAPI, fetchLocationData } from "@/components/TimeAndLocationServer";
+import { useEffect, useState } from "react";
 
 const timeVarients = {
   base: "flex flex-col md:flex-col md:justify-start lg:flex-row lg:items-end lg:justify-between",
   initial: "absolute lg:pt-[358px]",
   menuOpen: "absolute -translate-y-[5px] md:-translate-y-[50px] lg:-translate-y-[0px] transition-all duration-1000",
   menuClosed: "absolute lg:pt-[358px] translate-y-[0px] transition-all duration-1000",
-};
-
-type TimeDisplaySectionProps = {
-  menuState: MenuState;
-  toggleMenu: () => void;
 };
 
 function getShortTimeZone(timeZone: string): string {
@@ -28,10 +22,51 @@ function getShortTimeZone(timeZone: string): string {
     .split(" ")[1];
 }
 
-export default function TimeDisplaySection({ menuState, toggleMenu }: TimeDisplaySectionProps) {
-  const ipAddress = use(fetchIpAddress());
-  const timeData = ipAddress ? use(fetchTimefromTimeAPI(ipAddress.ip)) : null;
-  const locationData = timeData ? use(fetchLocationData(ipAddress.ip)) : null;
+export default function TimeDisplaySection() {
+  const [ipAddress, setIpAddress] = useState<string | null>(null);
+  const [timeData, setTimeData] = useState<any>(null); // eslint-disable-line
+  const [locationData, setLocationData] = useState<any>(null); // eslint-disable-line
+  const [menuState, setMenuState] = useState<MenuState>("initial");
+
+  const toggleMenu = () => {
+    setMenuState((prevState: MenuState) => {
+      if (prevState === "initial" || prevState === "menuClosed") {
+        return "menuOpen";
+      } else {
+        return "menuClosed";
+      }
+    });
+  };
+
+  useEffect(() => {
+    fetch("https://api.ipify.org/?format=json")
+      .then((res) => res.json())
+      .then((data) => {
+        setIpAddress(data.ip);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (ipAddress) {
+      fetch(`https://timeapi.io/api/time/current/ip?ipAddress=${ipAddress}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setTimeData(data);
+        });
+    }
+  }, [ipAddress]);
+
+  useEffect(() => {
+    if (timeData) {
+      fetch(`https://api.ipbase.com/v2/info?ip=${ipAddress}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setLocationData(data);
+        });
+    }
+  }, [timeData]);
+
+  console.log(locationData);
 
   return (
     <div className={`${timeVarients["base"]} ${timeVarients[menuState]} w-full px-[26px] md:px-[64px] lg:px-[165px]`}>
@@ -43,25 +78,34 @@ export default function TimeDisplaySection({ menuState, toggleMenu }: TimeDispla
           </h4>
         </div>
 
-        <div className={"flex items-baseline pt-4 md:pt-0 lg:pt-4"}>
-          <div className={"flex items-end"}>
-            <h1 className={"text-h1 md:text-h1-md lg:text-h1-lg"}>
-              {timeData && new Date(timeData.dateTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })}
-            </h1>
-          </div>
-          <p className={"text-abbr font-light uppercase md:text-abbr-md lg:pl-[11px] lg:text-abbr-lg"}>
-            {timeData && getShortTimeZone(timeData.timeZone)}
-          </p>
-        </div>
-        <h3 className={"pt-4 text-h3 md:pt-0 md:text-h3-md lg:pt-4 lg:text-h3-lg"}>
-          IN{" "}
-          <span className={"uppercase"}>
-            {" "}
-            {locationData && locationData.data.location.city.name
-              ? locationData.data.location.city.name + "," + locationData.data.location.region.name
-              : locationData && locationData.data.location.region.name}
-          </span>{" "}
-        </h3>
+        {timeData && (
+          <>
+            <div className={"flex items-baseline pt-4 md:pt-0 lg:pt-4"}>
+              <div className={"flex items-end"}>
+                <h1 className={"text-h1 md:text-h1-md lg:text-h1-lg"}>
+                  {timeData &&
+                    new Date(timeData.dateTime).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    })}
+                </h1>
+              </div>
+              <p className={"text-abbr font-light uppercase md:text-abbr-md lg:pl-[11px] lg:text-abbr-lg"}>
+                {timeData && getShortTimeZone(timeData.timeZone)}
+              </p>
+            </div>
+            <h3 className={"pt-4 text-h3 md:pt-0 md:text-h3-md lg:pt-4 lg:text-h3-lg"}>
+              IN{" "}
+              <span className={"uppercase"}>
+                {" "}
+                {locationData && locationData.data.location.city.name
+                  ? locationData.data.location.city.name + "," + locationData.data.location.region.name
+                  : locationData && locationData.data.location.region.name}
+              </span>{" "}
+            </h3>
+          </>
+        )}
       </div>
       <div
         className={
