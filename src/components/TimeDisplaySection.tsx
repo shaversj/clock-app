@@ -4,7 +4,8 @@ import type { MenuState } from "@/types/types";
 import SunIcon from "@/components/icons/SunIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
-import { useTimeAndLocation } from "@/hooks/useTimeAndLocation";
+import { use } from "react";
+import { fetchIpAddress, fetchTimefromTimeAPI, fetchLocationData } from "@/components/TimeAndLocationServer";
 
 const timeVarients = {
   base: "flex flex-col md:flex-col md:justify-start lg:flex-row lg:items-end lg:justify-between",
@@ -18,8 +19,19 @@ type TimeDisplaySectionProps = {
   toggleMenu: () => void;
 };
 
+function getShortTimeZone(timeZone: string): string {
+  return new Intl.DateTimeFormat("en-US", {
+    timeZone: timeZone,
+    timeZoneName: "short",
+  })
+    .format(new Date())
+    .split(" ")[1];
+}
+
 export default function TimeDisplaySection({ menuState, toggleMenu }: TimeDisplaySectionProps) {
-  const { timeData, locationData } = useTimeAndLocation();
+  const ipAddress = use(fetchIpAddress());
+  const timeData = ipAddress ? use(fetchTimefromTimeAPI(ipAddress.ip)) : null;
+  const locationData = timeData ? use(fetchLocationData(ipAddress.ip)) : null;
 
   return (
     <div className={`${timeVarients["base"]} ${timeVarients[menuState]} w-full px-[26px] md:px-[64px] lg:px-[165px]`}>
@@ -34,10 +46,12 @@ export default function TimeDisplaySection({ menuState, toggleMenu }: TimeDispla
         <div className={"flex items-baseline pt-4 md:pt-0 lg:pt-4"}>
           <div className={"flex items-end"}>
             <h1 className={"text-h1 md:text-h1-md lg:text-h1-lg"}>
-              {timeData && new Date(timeData.datetime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })}
+              {timeData && new Date(timeData.dateTime).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false })}
             </h1>
           </div>
-          <p className={"text-abbr font-light uppercase md:text-abbr-md lg:pl-[11px] lg:text-abbr-lg"}>{timeData?.abbreviation}</p>
+          <p className={"text-abbr font-light uppercase md:text-abbr-md lg:pl-[11px] lg:text-abbr-lg"}>
+            {timeData && getShortTimeZone(timeData.timeZone)}
+          </p>
         </div>
         <h3 className={"pt-4 text-h3 md:pt-0 md:text-h3-md lg:pt-4 lg:text-h3-lg"}>
           IN{" "}
