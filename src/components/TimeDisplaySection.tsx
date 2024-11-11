@@ -20,7 +20,6 @@ type TimeDisplaySectionProps = {
 };
 
 export default function TimeDisplaySection({ menuState, toggleMenu }: TimeDisplaySectionProps) {
-  const { ipAddress } = useIpAddress();
   const { timeData, locationData } = useTimeAndLocation();
 
   return (
