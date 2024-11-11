@@ -1,8 +1,19 @@
 import type { WorldTimeAPIResponse, IpBaseResponse } from "@/types/types";
 
-async function fetchTimeData(): Promise<WorldTimeAPIResponse> {
-  const response = await fetch("https://worldtimeapi.org/api/ip");
-  return response.json();
+export async function fetchTimeData(clientIp: string): Promise<WorldTimeAPIResponse> {
+  // const response = await fetch(`https://worldtimeapi.org/api/ip/${clientIp}`);
+  // return response.json();
+  //
+  return new Promise((resolve, reject) => {
+    fetch(`https://worldtimeapi.org/api/ip/${clientIp}`)
+      .then((res) => res.json())
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
 }
 
 async function fetchLocationData(clientIp: string): Promise<IpBaseResponse> {
@@ -12,8 +23,8 @@ async function fetchLocationData(clientIp: string): Promise<IpBaseResponse> {
   return response.json();
 }
 
-export default async function TimeAndLocationServer() {
-  const timeData = await fetchTimeData();
+export default async function TimeAndLocationServer({ clientIp }: { clientIp: string }) {
+  const timeData = await fetchTimeData(clientIp);
   console.log(`timeData:`, timeData);
   const locationData = timeData.client_ip ? await fetchLocationData(timeData.client_ip) : null;
 

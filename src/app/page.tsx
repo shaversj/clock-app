@@ -1,9 +1,13 @@
+"use client";
+import { use } from "react";
+
 // import type { MenuState } from "@/types/types";
 // import { useState } from "react";
 // import SubMenuSection from "@/components/SubMenuSection";
 // import TimeDisplaySection from "@/components/TimeDisplaySection";
 // import QuoteSection from "@/components/QuoteSection";
-import TimeAndLocationServer from "@/components/TimeAndLocationServer";
+import TimeAndLocationServer, { fetchTimeData } from "@/components/TimeAndLocationServer";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   // const [menuState, setMenuState] = useState<MenuState>("initial");
@@ -18,6 +22,18 @@ export default function Home() {
   //   });
   // };
 
+  const [ipAddress, setIpAddress] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.ipify.org/?format=json")
+      .then((res) => res.json())
+      .then((data) => {
+        setIpAddress(data.ip);
+      });
+  }, []);
+  console.log(ipAddress);
+  const data = ipAddress ? use(fetchTimeData(ipAddress)) : null;
+  console.log(data);
   return (
     <div
       className={
@@ -25,7 +41,8 @@ export default function Home() {
       }
     >
       {/*<TimeDisplaySection menuState={menuState} toggleMenu={toggleMenu} />*/}
-      <TimeAndLocationServer />
+
+      {/*{ipAddress ? <TimeAndLocationServer clientIp={ipAddress} /> : "Loading..."}*/}
 
       {/*<div className="relative px-[26px] md:px-[64px] lg:px-[165px]">*/}
       {/*  <QuoteSection menuState={menuState} />*/}

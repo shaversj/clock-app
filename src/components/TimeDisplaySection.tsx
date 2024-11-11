@@ -5,6 +5,7 @@ import SunIcon from "@/components/icons/SunIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
 import { useTimeAndLocation } from "@/hooks/useTimeAndLocation";
+import { useIpAddress } from "@/hooks/useIpAddress";
 
 const timeVarients = {
   base: "flex flex-col md:flex-col md:justify-start lg:flex-row lg:items-end lg:justify-between",
@@ -19,6 +20,7 @@ type TimeDisplaySectionProps = {
 };
 
 export default function TimeDisplaySection({ menuState, toggleMenu }: TimeDisplaySectionProps) {
+  const { ipAddress } = useIpAddress();
   const { timeData, locationData } = useTimeAndLocation();
 
   return (
