@@ -4,7 +4,6 @@ import type { MenuState } from "@/types/types";
 import SunIcon from "@/components/icons/SunIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
-import { useEffect, useState } from "react";
 
 const timeVarients = {
   base: "flex flex-col md:flex-col md:justify-start lg:flex-row lg:items-end lg:justify-between",
@@ -22,52 +21,14 @@ function getShortTimeZone(timeZone: string): string {
     .split(" ")[1];
 }
 
-export default function TimeDisplaySection() {
-  const [ipAddress, setIpAddress] = useState<string | null>(null);
-  const [timeData, setTimeData] = useState<any>(null); // eslint-disable-line
-  const [locationData, setLocationData] = useState<any>(null); // eslint-disable-line
-  const [menuState, setMenuState] = useState<MenuState>("initial");
+type TimeDisplaySectionProps = {
+  menuState: MenuState;
+  timeData: any;
+  locationData: any;
+  toggleMenu: () => void;
+};
 
-  const toggleMenu = () => {
-    setMenuState((prevState: MenuState) => {
-      if (prevState === "initial" || prevState === "menuClosed") {
-        return "menuOpen";
-      } else {
-        return "menuClosed";
-      }
-    });
-  };
-
-  useEffect(() => {
-    fetch("https://api.ipify.org/?format=json")
-      .then((res) => res.json())
-      .then((data) => {
-        setIpAddress(data.ip);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (ipAddress) {
-      fetch(`https://timeapi.io/api/time/current/ip?ipAddress=${ipAddress}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setTimeData(data);
-        });
-    }
-  }, [ipAddress]);
-
-  useEffect(() => {
-    if (timeData) {
-      fetch(`https://api.ipbase.com/v2/info?ip=${ipAddress}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setLocationData(data);
-        });
-    }
-  }, [timeData]);
-
-  console.log(locationData);
-
+export default function TimeDisplaySection({ menuState, timeData, locationData, toggleMenu }: TimeDisplaySectionProps) {
   return (
     <div className={`${timeVarients["base"]} ${timeVarients[menuState]} w-full px-[26px] md:px-[64px] lg:px-[165px]`}>
       <div>
