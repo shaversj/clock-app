@@ -1,11 +1,10 @@
 import type { MenuState } from "@/types/types";
-import type { WorldTimeAPIResponse } from "@/types/types";
 
 const subMenuVarients = {
-  base: "bg-white/50 backdrop-blur-xl",
-  initial: "lg:mt-[233px] translate-y-[65px] translate-y-[70px]",
-  menuOpen: "translate-y-[33px] md:-translate-y-[-14px] lg:-translate-y-[35px] transition-all duration-1000",
-  menuClosed: "mt-[233px] md:translate-y-[101px] translate-y-[70px] transition-all duration-1000",
+  base: "absolute bg-white/50 backdrop-blur-xl -mx-[26px] pr-[20px] md:-mx-[64px] md:pr-[100px] lg:-mx-[165px] lg:pr-[380px]",
+  initial: "md:mt-[825px] mt-[650px] translate-y-[500px]",
+  menuOpen: "translate-y-[305px] md:translate-y-[550px] lg:translate-y-[458px] transition-all duration-1000",
+  menuClosed: "mt-[650px] md:translate-y-[175px] translate-y-[70px] lg:translate-y-[500px] transition-all duration-1000",
 };
 
 type SubMenuContainerProps = {

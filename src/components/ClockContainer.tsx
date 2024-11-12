@@ -59,8 +59,6 @@ export default function ClockContainer() {
       <div className="relative px-[26px] md:px-[64px] lg:px-[165px]">
         <QuoteSection menuState={menuState} />
       </div>
-
-      {/*<SubMenuSection menuState={menuState} data={timeData} />*/}
     </div>
   );
 }

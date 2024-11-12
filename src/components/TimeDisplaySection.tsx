@@ -4,12 +4,13 @@ import type { MenuState } from "@/types/types";
 import SunIcon from "@/components/icons/SunIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
+import SubMenuSection from "@/components/SubMenuSection";
 
 const timeVarients = {
   base: "flex flex-col md:flex-col md:justify-start lg:flex-row lg:items-end lg:justify-between",
-  initial: "absolute lg:pt-[358px]",
-  menuOpen: "absolute -translate-y-[5px] md:-translate-y-[50px] lg:-translate-y-[0px] transition-all duration-1000",
-  menuClosed: "absolute lg:pt-[358px] translate-y-[0px] transition-all duration-1000",
+  initial: "absolute pt-[323px] md:pt-[510px] lg:pt-[358px]",
+  menuOpen: "absolute translate-y-[75px] md:-translate-y-[50px] lg:-translate-y-[0px] transition-all duration-1000",
+  menuClosed: "absolute pt-[323px] md:pt-[510px] lg:pt-[358px] translate-y-[0px] transition-all duration-1000",
 };
 
 function getShortTimeZone(timeZone: string): string {
@@ -83,6 +84,8 @@ export default function TimeDisplaySection({ menuState, timeData, locationData, 
           {menuState === "initial" || menuState === "menuClosed" ? <ArrowDownIcon /> : <ArrowUpIcon />}
         </button>
       </div>
+
+      <SubMenuSection menuState={menuState} data={timeData} />
     </div>
   );
 }
