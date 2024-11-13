@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} grid min-h-screen place-items-center font-inter antialiased`}>{children}</body>
+      <body className={`${inter.variable} grid min-h-dvh place-items-center font-inter antialiased`}>{children}</body>
     </html>
   );
 }
