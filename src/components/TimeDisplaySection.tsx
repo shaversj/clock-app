@@ -35,14 +35,14 @@ export default function TimeDisplaySection({ menuState, timeData, locationData, 
       <div>
         <div className={"flex items-center gap-x-4"}>
           <SunIcon />
-          <h4 className={"text-h4-mobile uppercase md:text-h4"}>
+          <h4 className={"text-h4-mobile uppercase text-white md:text-h4"}>
             GOOD MORNING<span className={"hidden md:inline-block"}>, IT’S CURRENTLY</span>
           </h4>
         </div>
 
         {timeData && (
           <>
-            <div className={"flex items-baseline pt-4 md:pt-0 lg:pt-4"}>
+            <div className={"flex items-baseline pt-4 text-white md:pt-0 lg:pt-4"}>
               <div className={"flex items-end"}>
                 <h1 className={"text-h1 md:text-h1-md lg:text-h1-lg"}>
                   {timeData &&
@@ -57,7 +57,7 @@ export default function TimeDisplaySection({ menuState, timeData, locationData, 
                 {timeData && getShortTimeZone(timeData.timeZone)}
               </p>
             </div>
-            <h3 className={"pt-4 text-h3 md:pt-0 md:text-h3-md lg:pt-4 lg:text-h3-lg"}>
+            <h3 className={"pt-4 text-h3 text-white md:pt-0 md:text-h3-md lg:pt-4 lg:text-h3-lg"}>
               IN{" "}
               <span className={"uppercase"}>
                 {" "}
