@@ -56,7 +56,7 @@ export default function ClockContainer() {
       }
     >
       <TimeDisplaySection menuState={menuState} timeData={timeData} locationData={locationData} toggleMenu={toggleMenu} />
-      <div className="relative px-[26px] md:px-[64px] lg:px-[165px]">
+      <div className="px-[26px] md:px-[64px] lg:px-[165px]">
         <QuoteSection menuState={menuState} />
       </div>
     </div>
