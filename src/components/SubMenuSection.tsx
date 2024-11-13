@@ -9,10 +9,10 @@ const subMenuVarients = {
 
 type SubMenuContainerProps = {
   menuState: MenuState;
-  data: any;
+  data: any; // eslint-disable-line
 };
 
-function getDayOfYearFromTimestamp(timestamp: number): String {
+function getDayOfYearFromTimestamp(timestamp: number): string {
   const date = new Date(timestamp);
   const start = new Date(date.getFullYear(), 0, 0);
   const diff = date.getTime() - start.getTime();
@@ -20,14 +20,14 @@ function getDayOfYearFromTimestamp(timestamp: number): String {
   return String(Math.floor(diff / oneDay));
 }
 
-function getWeekNumberFromTimestamp(timestamp: number): String {
+function getWeekNumberFromTimestamp(timestamp: number): string {
   const date = new Date(timestamp);
   const oneJan = new Date(date.getFullYear(), 0, 1);
   const numberOfDays = Math.floor((date.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000));
   return String(Math.ceil((date.getDay() + 1 + numberOfDays) / 7));
 }
 
-function getWeekDayNumberFromTimestamp(timestamp: number): String {
+function getWeekDayNumberFromTimestamp(timestamp: number): string {
   const date = new Date(timestamp);
   return String(date.getDay());
 }

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import type { ProgrammingQuoteAPIResponse } from "@/types/types";
 
-export default function useProgrammingQuote() {
+export function useProgrammingQuote() {
   const [quoteData, setQuoteData] = useState<ProgrammingQuoteAPIResponse | null>(null);
 
   async function fetchQuoteData() {

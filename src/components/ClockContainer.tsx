@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import type { MenuState } from "@/types/types";
 import TimeDisplaySection from "@/components/TimeDisplaySection";
 import QuoteSection from "@/components/QuoteSection";
-import SubMenuSection from "@/components/SubMenuSection";
 
 export default function ClockContainer() {
   const [ipAddress, setIpAddress] = useState<string | null>(null);

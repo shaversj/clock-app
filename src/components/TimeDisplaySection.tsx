@@ -24,8 +24,8 @@ function getShortTimeZone(timeZone: string): string {
 
 type TimeDisplaySectionProps = {
   menuState: MenuState;
-  timeData: any;
-  locationData: any;
+  timeData: any; // eslint-disable-line
+  locationData: any; // eslint-disable-line
   toggleMenu: () => void;
 };
 
