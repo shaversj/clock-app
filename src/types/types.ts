@@ -3,6 +3,10 @@ export type ProgrammingQuoteAPIResponse = {
   quote: string;
 };
 
+export type IpifyResponse = {
+  ip: string;
+};
+
 export type MenuState = "initial" | "menuOpen" | "menuClosed";
 
 export type WorldTimeAPIResponse = {
@@ -21,6 +25,22 @@ export type WorldTimeAPIResponse = {
   dst_from: string | null;
   dst_until: string | null;
   client_ip: string;
+};
+
+export type TimeAPIResponse = {
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number;
+  seconds: number;
+  milliSeconds: number;
+  dateTime: string;
+  date: string;
+  time: string;
+  timeZone: string;
+  dayOfWeek: string;
+  dstActive: boolean;
 };
 
 export type IpBaseResponse = {

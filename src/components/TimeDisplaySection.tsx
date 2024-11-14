@@ -1,6 +1,6 @@
 "use client";
 
-import type { MenuState } from "@/types/types";
+import type { IpBaseResponse, MenuState, TimeAPIResponse } from "@/types/types";
 import SunIcon from "@/components/icons/SunIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
@@ -25,19 +25,29 @@ function getShortTimeZone(timeZone: string): string {
 
 type TimeDisplaySectionProps = {
   menuState: MenuState;
-  timeData: any; // eslint-disable-line
-  locationData: any; // eslint-disable-line
+  timeData?: TimeAPIResponse;
+  locationData?: IpBaseResponse;
   toggleMenu: () => void;
 };
+
+function getGreeting(hour: number): string {
+  if (hour >= 5 && hour < 12) {
+    return "GOOD MORNING";
+  } else if (hour >= 12 && hour < 18) {
+    return "GOOD AFTERNOON";
+  } else {
+    return "GOOD EVENING";
+  }
+}
 
 export default function TimeDisplaySection({ menuState, timeData, locationData, toggleMenu }: TimeDisplaySectionProps) {
   return (
     <div className={`${timeVarients["base"]} ${timeVarients[menuState]} w-full px-[26px] md:px-[64px] lg:px-[165px]`}>
       <div>
         <div className={"flex items-center gap-x-4"}>
-          {timeData && timeData.hour < 18 && timeData.hour >= 6 ? <SunIcon /> : <MoonIcon />}
+          {timeData ? timeData.hour >= 5 && timeData.hour < 18 ? <SunIcon /> : <MoonIcon /> : <SunIcon />}{" "}
           <h4 className={"text-h4-mobile uppercase text-white md:text-h4"}>
-            {timeData && timeData.hour < 18 && timeData.hour >= 6 ? "GOOD MORNING" : "GOOD EVENING"}
+            {timeData ? getGreeting(timeData.hour) : "GOOD MORNING"}
             <span className={"hidden md:inline-block"}>, IT’S CURRENTLY</span>
           </h4>
         </div>
@@ -47,25 +57,28 @@ export default function TimeDisplaySection({ menuState, timeData, locationData, 
             <div className={"flex items-baseline pt-4 text-white md:pt-0 lg:pt-4"}>
               <div className={"flex items-end"}>
                 <h1 className={"text-h1 md:text-h1-md lg:text-h1-lg"}>
-                  {timeData &&
-                    new Date(timeData.dateTime).toLocaleTimeString([], {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: false,
-                    })}
+                  {timeData
+                    ? new Date(timeData.dateTime).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                      })
+                    : "11:37"}
                 </h1>
               </div>
               <p className={"text-abbr font-light uppercase md:text-abbr-md lg:pl-[11px] lg:text-abbr-lg"}>
-                {timeData && getShortTimeZone(timeData.timeZone)}
+                {timeData ? getShortTimeZone(timeData.timeZone) : "BST"}
               </p>
             </div>
             <h3 className={"pt-4 text-h3 text-white md:pt-0 md:text-h3-md lg:pt-4 lg:text-h3-lg"}>
               IN{" "}
               <span className={"uppercase"}>
                 {" "}
-                {locationData && locationData.data.location.city.name
-                  ? locationData.data.location.city.name + "," + locationData.data.location.region.name
-                  : locationData && locationData.data.location.region.name}
+                {locationData
+                  ? locationData.data.location.city.name
+                    ? locationData.data.location.city.name + "," + locationData.data.location.region.name
+                    : locationData && locationData.data.location.region.name
+                  : "LONDON, UK"}
               </span>{" "}
             </h3>
           </>

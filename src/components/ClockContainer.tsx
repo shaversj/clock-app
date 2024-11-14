@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { MenuState } from "@/types/types";
+import type { IpBaseResponse, IpifyResponse, MenuState, TimeAPIResponse } from "@/types/types";
 import TimeDisplaySection from "@/components/TimeDisplaySection";
 import QuoteSection from "@/components/QuoteSection";
 
@@ -14,9 +14,9 @@ const clockVarients = {
 };
 
 export default function ClockContainer() {
-  const [ipAddress, setIpAddress] = useState<string | null>(null);
-  const [timeData, setTimeData] = useState<any>(null); // eslint-disable-line
-  const [locationData, setLocationData] = useState<any>(null); // eslint-disable-line
+  const [ipData, setIpData] = useState<IpifyResponse | undefined>(undefined);
+  const [timeData, setTimeData] = useState<TimeAPIResponse | undefined>(undefined); // eslint-disable-line
+  const [locationData, setLocationData] = useState<IpBaseResponse | undefined>(undefined); // eslint-disable-line
   const [menuState, setMenuState] = useState<MenuState>("initial");
 
   const toggleMenu = () => {
@@ -33,23 +33,23 @@ export default function ClockContainer() {
     fetch("https://api.ipify.org/?format=json")
       .then((res) => res.json())
       .then((data) => {
-        setIpAddress(data.ip);
+        setIpData(data);
       });
   }, []);
 
   useEffect(() => {
-    if (ipAddress) {
-      fetch(`https://timeapi.io/api/time/current/ip?ipAddress=${ipAddress}`)
+    if (ipData) {
+      fetch(`https://timeapi.io/api/time/current/ip?ipAddress=${ipData.ip}`)
         .then((res) => res.json())
         .then((data) => {
           setTimeData(data);
         });
     }
-  }, [ipAddress]);
+  }, [ipData]);
 
   useEffect(() => {
-    if (timeData) {
-      fetch(`https://api.ipbase.com/v2/info?ip=${ipAddress}`)
+    if (timeData && ipData) {
+      fetch(`https://api.ipbase.com/v2/info?ip=${ipData.ip}`)
         .then((res) => res.json())
         .then((data) => {
           setLocationData(data);
@@ -59,7 +59,7 @@ export default function ClockContainer() {
 
   return (
     <div
-      className={`${clockVarients["base"]} ${timeData && timeData.hour < 18 && timeData.hour >= 6 ? clockVarients["daytime"] : clockVarients["nighttime"]}`}
+      className={`${clockVarients["base"]} ${timeData ? (timeData.hour < 18 && timeData.hour >= 6 ? clockVarients["daytime"] : clockVarients["nighttime"]) : clockVarients["daytime"]}`}
     >
       <TimeDisplaySection menuState={menuState} timeData={timeData} locationData={locationData} toggleMenu={toggleMenu} />
       <div className="px-[26px] md:px-[64px] lg:px-[165px]">
