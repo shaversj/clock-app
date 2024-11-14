@@ -5,6 +5,7 @@ import SunIcon from "@/components/icons/SunIcon";
 import ArrowDownIcon from "@/components/icons/ArrowDownIcon";
 import ArrowUpIcon from "@/components/icons/ArrowUpIcon";
 import SubMenuSection from "@/components/SubMenuSection";
+import MoonIcon from "@/components/icons/MoonIcon";
 
 const timeVarients = {
   base: "flex flex-col md:flex-col md:justify-start lg:flex-row lg:items-end lg:justify-between",
@@ -34,9 +35,10 @@ export default function TimeDisplaySection({ menuState, timeData, locationData, 
     <div className={`${timeVarients["base"]} ${timeVarients[menuState]} w-full px-[26px] md:px-[64px] lg:px-[165px]`}>
       <div>
         <div className={"flex items-center gap-x-4"}>
-          <SunIcon />
+          {timeData && timeData.hour < 18 && timeData.hour >= 6 ? <SunIcon /> : <MoonIcon />}
           <h4 className={"text-h4-mobile uppercase text-white md:text-h4"}>
-            GOOD MORNING<span className={"hidden md:inline-block"}>, IT’S CURRENTLY</span>
+            {timeData && timeData.hour < 18 && timeData.hour >= 6 ? "GOOD MORNING" : "GOOD EVENING"}
+            <span className={"hidden md:inline-block"}>, IT’S CURRENTLY</span>
           </h4>
         </div>
 

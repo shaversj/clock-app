@@ -5,9 +5,9 @@ import RefreshIcon from "@/components/icons/RefreshIcon";
 import { useEffect, useState } from "react";
 
 const quoteVarients = {
-  base: "flex gap-x-[15.67px] min-w-fit flex-wrap items-start text-mobile md:text-base font-normal text-white",
+  base: "relative flex gap-x-[15.67px] min-w-fit flex-wrap items-start text-mobile md:text-base font-normal text-white",
   initial: "",
-  menuOpen: "min-w-fit lg:max-w-[540px] opacity-0 transition-all duration-[1500ms]",
+  menuOpen: "min-w-fit lg:max-w-[540px] opacity-0 transition-all duration-[1500ms] pointer-events-none",
   menuClosed: "min-w-fit lg:max-w-[540px] opacity-100 transition-all duration-[1000ms] ease-in",
 };
 

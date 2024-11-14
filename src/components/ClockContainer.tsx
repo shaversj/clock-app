@@ -5,6 +5,14 @@ import type { MenuState } from "@/types/types";
 import TimeDisplaySection from "@/components/TimeDisplaySection";
 import QuoteSection from "@/components/QuoteSection";
 
+const clockVarients = {
+  base: "relative h-[667px] w-[375px] overflow-hidden bg-black/40 bg-auto pt-[31.67px] bg-blend-overlay md:h-[1024] md:w-[768px] md:pt-[80px] lg:h-[800px] lg:w-[1440px] lg:pt-[56px]",
+  daytime:
+    "bg-[url('/images/mobile/bg-image-daytime.jpg')] md:bg-[url('/images/tablet/bg-image-daytime.jpg')] lg:bg-[url('/images/desktop/bg-image-daytime.jpg')]",
+  nighttime:
+    "bg-[url('/images/mobile/bg-image-nighttime.jpg')] md:bg-[url('/images/tablet/bg-image-nighttime.jpg')] lg:bg-[url('/images/desktop/bg-image-nighttime.jpg')]",
+};
+
 export default function ClockContainer() {
   const [ipAddress, setIpAddress] = useState<string | null>(null);
   const [timeData, setTimeData] = useState<any>(null); // eslint-disable-line
@@ -48,11 +56,10 @@ export default function ClockContainer() {
         });
     }
   }, [timeData]);
+
   return (
     <div
-      className={
-        "relative h-[667px] w-[375px] overflow-hidden bg-black/40 bg-[url('/images/mobile/bg-image-daytime.jpg')] bg-auto pt-[31.67px] bg-blend-overlay md:h-[1024] md:w-[768px] md:bg-[url('/images/tablet/bg-image-daytime.jpg')] md:pt-[80px] lg:h-[800px] lg:w-[1440px] lg:bg-[url('/images/desktop/bg-image-daytime.jpg')] lg:pt-[56px]"
-      }
+      className={`${clockVarients["base"]} ${timeData && timeData.hour < 18 && timeData.hour >= 6 ? clockVarients["daytime"] : clockVarients["nighttime"]}`}
     >
       <TimeDisplaySection menuState={menuState} timeData={timeData} locationData={locationData} toggleMenu={toggleMenu} />
       <div className="px-[26px] md:px-[64px] lg:px-[165px]">
