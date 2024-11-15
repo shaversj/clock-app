@@ -6,7 +6,7 @@ import TimeDisplaySection from "@/components/TimeDisplaySection";
 import QuoteSection from "@/components/QuoteSection";
 
 const clockVarients = {
-  base: "relative h-[667px] w-[375px] overflow-hidden bg-black/40 bg-auto pt-[31.67px] bg-blend-overlay md:h-[1024] md:w-[768px] md:pt-[80px] lg:h-[800px] lg:w-[1440px] lg:pt-[56px]",
+  base: "relative min-h-screen min-w-full bg-no-repeat overflow-hidden bg-black/40 bg-cover pt-[calc(4.75%)] bg-blend-overlay md:h-[calc(100vh-59rem)] md:pt-[calc(7.81%)] lg:h-[calc(100vh-46.5rem)] lg:w-[90rem] lg:pt-[calc(7%)]",
   daytime:
     "bg-[url('/images/mobile/bg-image-daytime.jpg')] md:bg-[url('/images/tablet/bg-image-daytime.jpg')] lg:bg-[url('/images/desktop/bg-image-daytime.jpg')]",
   nighttime:
@@ -15,8 +15,8 @@ const clockVarients = {
 
 export default function ClockContainer() {
   const [ipData, setIpData] = useState<IpifyResponse | undefined>(undefined);
-  const [timeData, setTimeData] = useState<TimeAPIResponse | undefined>(undefined); // eslint-disable-line
-  const [locationData, setLocationData] = useState<IpBaseResponse | undefined>(undefined); // eslint-disable-line
+  const [timeData, setTimeData] = useState<TimeAPIResponse | undefined>(undefined);
+  const [locationData, setLocationData] = useState<IpBaseResponse | undefined>(undefined);
   const [menuState, setMenuState] = useState<MenuState>("initial");
 
   const toggleMenu = () => {
@@ -62,7 +62,7 @@ export default function ClockContainer() {
       className={`${clockVarients["base"]} ${timeData ? (timeData.hour < 18 && timeData.hour >= 6 ? clockVarients["daytime"] : clockVarients["nighttime"]) : clockVarients["daytime"]}`}
     >
       <TimeDisplaySection menuState={menuState} timeData={timeData} locationData={locationData} toggleMenu={toggleMenu} />
-      <div className="px-[26px] md:px-[64px] lg:px-[165px]">
+      <div className="px-[1.625rem] md:px-[4rem] lg:px-[10.313rem]">
         <QuoteSection menuState={menuState} />
       </div>
     </div>

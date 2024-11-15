@@ -5,10 +5,10 @@ import RefreshIcon from "@/components/icons/RefreshIcon";
 import { useEffect, useState } from "react";
 
 const quoteVarients = {
-  base: "relative flex gap-x-[15.67px] min-w-fit flex-wrap items-start text-mobile md:text-base font-normal text-white",
+  base: "relative flex gap-x-[0.979rem] min-w-fit flex-wrap items-start text-mobile md:text-base font-normal text-white",
   initial: "",
-  menuOpen: "min-w-fit lg:max-w-[540px] opacity-0 transition-all duration-[1500ms] pointer-events-none",
-  menuClosed: "min-w-fit lg:max-w-[540px] opacity-100 transition-all duration-[1000ms] ease-in",
+  menuOpen: "min-w-fit lg:max-w-[33.75rem] opacity-0 transition-all duration-[1500ms] pointer-events-none",
+  menuClosed: "min-w-fit lg:max-w-[33.75rem] opacity-100 transition-all duration-[1000ms] ease-in",
 };
 
 type QuoteSectionProps = {
@@ -29,9 +29,13 @@ export default function QuoteSection({ menuState }: QuoteSectionProps) {
 
   return (
     <section className={`${quoteVarients["base"]} ${quoteVarients[menuState]}`}>
-      <div className={"lg:max-w-[540px]"}>
-        <p>{quoteData && quoteData.quote}</p>
-        <p className={"pt-2 font-bold md:pt-[13px]"}>{quoteData && quoteData.author}</p>
+      <div className={"lg:max-w-[33.75rem]"}>
+        <p>
+          {quoteData
+            ? quoteData.quote
+            : "“The science of operations, as derived from mathematics more especially, is a science of itself, and has its own abstract truth and value.”"}
+        </p>
+        <p className={"pt-2 font-bold md:pt-[0.813rem]"}>{quoteData ? quoteData.author : "Ada Lovelace"}</p>
       </div>
       <button onClick={fetchQuoteData} className={"md:pt-1"}>
         <RefreshIcon />

@@ -1,18 +1,13 @@
-import type { MenuState } from "@/types/types";
+import type { MenuState, TimeAPIResponse } from "@/types/types";
 
 const subMenuVarients = {
-  base: "absolute bg-white/50 backdrop-blur-xl -mx-[26px] pr-[20px] md:-mx-[64px] md:pr-[100px] lg:-mx-[165px] lg:pr-[380px]",
-  initial: "md:mt-[825px] mt-[650px] translate-y-[500px]",
-  menuOpen: "translate-y-[305px] md:translate-y-[550px] lg:translate-y-[458px] transition-all duration-1000",
-  menuClosed: "mt-[650px] md:translate-y-[175px] translate-y-[70px] lg:translate-y-[500px] transition-all duration-1000",
+  base: "absolute bg-white/50 backdrop-blur-xl -ml-[1.625rem] pr-[100vw] md:-mx-[4rem] md:pr-[100vw] lg:-mx-[10.313rem] lg:pr-[100vw]",
+  initial: "md:mt-[51.563rem] mt-[40.625rem] translate-y-[31.25rem] opacity-0",
+  menuOpen: "translate-y-[19.063rem] md:translate-y-[34.375rem] lg:translate-y-[28.625rem] transition-all duration-1000 opacity-100",
+  menuClosed: "mt-[40.625rem] md:translate-y-[10.938rem] translate-y-[4.375rem] lg:translate-y-[31.25rem] transition-all duration-1000 opacity-0",
 };
 
-type SubMenuContainerProps = {
-  menuState: MenuState;
-  data: any; // eslint-disable-line
-};
-
-function getDayOfYearFromTimestamp(timestamp: number): string {
+function getDayOfYearFromTimestamp(timestamp: string): string {
   const date = new Date(timestamp);
   const start = new Date(date.getFullYear(), 0, 0);
   const diff = date.getTime() - start.getTime();
@@ -20,19 +15,24 @@ function getDayOfYearFromTimestamp(timestamp: number): string {
   return String(Math.floor(diff / oneDay));
 }
 
-function getWeekNumberFromTimestamp(timestamp: number): string {
+function getWeekNumberFromTimestamp(timestamp: string): string {
   const date = new Date(timestamp);
   const oneJan = new Date(date.getFullYear(), 0, 1);
   const numberOfDays = Math.floor((date.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000));
   return String(Math.ceil((date.getDay() + 1 + numberOfDays) / 7));
 }
 
-function getWeekDayNumberFromTimestamp(timestamp: number): string {
+function getWeekDayNumberFromTimestamp(timestamp: string): string {
   const date = new Date(timestamp);
   return String(date.getDay());
 }
 
-export default function SubMenuSection({ menuState, data }: SubMenuContainerProps) {
+type SubMenuContainerProps = {
+  menuState: MenuState;
+  timeData?: TimeAPIResponse;
+};
+
+export default function SubMenuSection({ menuState, timeData }: SubMenuContainerProps) {
   const menuIndices = [0, 1];
   return (
     <section className={`${subMenuVarients["base"]} ${subMenuVarients[menuState]}`}>
@@ -46,13 +46,13 @@ export default function SubMenuSection({ menuState, data }: SubMenuContainerProp
                 {index === 0 ? "Current Timezone" : "Day of the Week"}
               </h6>
               <h2 className={"ml-auto text-h2 text-dark-gray md:text-h2-md lg:pt-2.25 lg:text-h2-lg"}>
-                {data && index === 0 ? data?.timeZone : getWeekDayNumberFromTimestamp(data?.dateTime)}
+                {timeData && index === 0 ? timeData?.timeZone : getWeekDayNumberFromTimestamp(timeData?.dateTime ?? "")}
               </h2>
             </div>
             <div className={"flex text-nowrap md:block md:pt-[70px] lg:block lg:pt-10.5"}>
               <h6 className={"text-h6 uppercase text-dark-gray md:text-h6-md lg:text-h6-lg"}>{index === 0 ? "Day of the Year" : "Week Number"}</h6>
               <h2 className={"ml-auto text-h2 text-dark-gray md:text-h2-md lg:pt-2.25 lg:text-h2-lg"}>
-                {data && index === 0 ? getDayOfYearFromTimestamp(data?.dateTime) : getWeekNumberFromTimestamp(data?.dateTime)}
+                {timeData && index === 0 ? getDayOfYearFromTimestamp(timeData?.dateTime) : getWeekNumberFromTimestamp(timeData?.dateTime ?? "")}
               </h2>
             </div>
             {index === 0 && <div className={"ml-36.75 mr-23.5 hidden w-0.25 bg-dark-gray lg:block"}></div>}

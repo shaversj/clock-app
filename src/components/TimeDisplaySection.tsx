@@ -23,13 +23,6 @@ function getShortTimeZone(timeZone: string): string {
     .split(" ")[1];
 }
 
-type TimeDisplaySectionProps = {
-  menuState: MenuState;
-  timeData?: TimeAPIResponse;
-  locationData?: IpBaseResponse;
-  toggleMenu: () => void;
-};
-
 function getGreeting(hour: number): string {
   if (hour >= 5 && hour < 12) {
     return "GOOD MORNING";
@@ -39,6 +32,13 @@ function getGreeting(hour: number): string {
     return "GOOD EVENING";
   }
 }
+
+type TimeDisplaySectionProps = {
+  menuState: MenuState;
+  timeData?: TimeAPIResponse;
+  locationData?: IpBaseResponse;
+  toggleMenu: () => void;
+};
 
 export default function TimeDisplaySection({ menuState, timeData, locationData, toggleMenu }: TimeDisplaySectionProps) {
   return (
@@ -100,7 +100,7 @@ export default function TimeDisplaySection({ menuState, timeData, locationData, 
         </button>
       </div>
 
-      <SubMenuSection menuState={menuState} data={timeData} />
+      <SubMenuSection menuState={menuState} timeData={timeData} />
     </div>
   );
 }
