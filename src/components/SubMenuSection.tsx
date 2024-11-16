@@ -3,7 +3,7 @@ import type { MenuState, TimeAPIResponse } from "@/types/types";
 const subMenuVarients = {
   base: "absolute bg-white/50 backdrop-blur-xl -ml-[1.625rem] pr-[100vw] md:-mx-[4rem] md:pr-[100vw] lg:-mx-[10.313rem] lg:pr-[100vw]",
   initial: "md:mt-[51.563rem] mt-[40.625rem] translate-y-[31.25rem] opacity-0",
-  menuOpen: "translate-y-[19.063rem] md:translate-y-[34.375rem] lg:translate-y-[28.625rem] transition-all duration-1000 opacity-100",
+  menuOpen: "translate-y-[19.063rem] md:translate-y-[34.375rem] pb-[100vw] lg:translate-y-[28.625rem] transition-all duration-1000 opacity-100",
   menuClosed: "mt-[40.625rem] md:translate-y-[10.938rem] translate-y-[4.375rem] lg:translate-y-[31.25rem] transition-all duration-1000 opacity-0",
 };
 
