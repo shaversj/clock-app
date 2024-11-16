@@ -1,9 +1,9 @@
-import ClockContainer from "@/components/ClockContainer";
+import ClockDisplay from "@/components/ClockDisplay";
 
 export default function Home() {
   return (
-    <div>
-      <ClockContainer />
-    </div>
+    <main>
+      <ClockDisplay />
+    </main>
   );
 }
