@@ -10,7 +10,7 @@ export default function ToggleMenu({ menuState, toggleMenu }: ToggleMenuProps) {
   return (
     <div
       className={
-        "mt-[48px] flex h-[39px] w-[115px] items-center justify-end gap-x-[10px] rounded-[28px] bg-white md:mt-[80px] md:h-[56px] md:w-[146px] md:gap-x-[13px]"
+        "mt-[3rem] flex h-[2.438rem] w-[7.188rem] items-center justify-end gap-x-[0.625rem] rounded-[1.75rem] bg-white md:mt-[5rem] md:h-[3.5rem] md:w-[9.125rem] md:gap-x-[0.813rem]"
       }
     >
       <span className={"text-button font-bold uppercase text-[#808080] md:text-button-md"}>
@@ -18,7 +18,9 @@ export default function ToggleMenu({ menuState, toggleMenu }: ToggleMenuProps) {
       </span>
       <button
         onClick={() => toggleMenu()}
-        className={"mr-[4px] flex size-[32px] items-center justify-center rounded-full bg-dark-gray hover:bg-light-gray md:mr-[9px] md:size-[40px]"}
+        className={
+          "mr-[0.25rem] flex size-[2rem] items-center justify-center rounded-full bg-dark-gray hover:bg-light-gray md:mr-[0.563rem] md:size-[2.5rem]"
+        }
       >
         {menuState === "initial" || menuState === "menuClosed" ? <ArrowDownIcon /> : <ArrowUpIcon />}
       </button>
