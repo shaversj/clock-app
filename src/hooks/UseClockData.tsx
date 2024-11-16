@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import type { IpBaseResponse, IpifyResponse, MenuState, TimeAPIResponse } from "@/types/types";
+import type { IpBaseResponse, IpifyResponse, TimeAPIResponse } from "@/types/types";
 
 export function useClockData() {
   const [ipData, setIpData] = useState<IpifyResponse | undefined>(undefined);
