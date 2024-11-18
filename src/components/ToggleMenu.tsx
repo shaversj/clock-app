@@ -17,6 +17,7 @@ export default function ToggleMenu({ menuState, toggleMenu }: ToggleMenuProps) {
         {menuState === "initial" || menuState === "menuClosed" ? "More" : "Less"}
       </span>
       <button
+        aria-label="Toggle Menu"
         onClick={() => toggleMenu()}
         className={
           "mr-[0.25rem] flex size-[2rem] items-center justify-center rounded-full bg-dark-gray hover:bg-light-gray md:mr-[0.563rem] md:size-[2.5rem]"
